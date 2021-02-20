@@ -167,12 +167,16 @@ jobs:
         echo "::set-env name=CONAN_ENV_COMPILER::${{ matrix.compiler }}"
         echo "::set-env name=CONAN_ENV_COMPILER_VERSION::${{ matrix.version }}"
         echo "::set-env name=QTDIR::$PWD/build/5.13.0/gcc_64"
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
     - name: Setup Environment (macOS)
       if: startsWith(matrix.os, 'macOS')
       run: |
         echo "::set-env name=VULKAN_SDK::$PWD/vulkan/macOS"
         sudo xcode-select -switch /Applications/Xcode_${{ matrix.version }}.app
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
     - name: Setup Environment (Windows)
       if: startsWith(matrix.os, 'windows')
@@ -182,6 +186,8 @@ jobs:
         echo "::set-env name=QTDIR::C:\\Qt\\5.13.0\\msvc2017_64"
         echo "::set-env name=CONAN_ENV_COMPILER::Visual Studio"
         echo "::set-env name=CONAN_ENV_COMPILER_VERSION::16"
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
     - name: Install Conan Dependencies (Ubuntu)
       if: startsWith(matrix.os, 'ubuntu')
